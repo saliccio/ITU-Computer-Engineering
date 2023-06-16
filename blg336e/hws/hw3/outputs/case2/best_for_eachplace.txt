@@ -1,0 +1,31 @@
+john_wick --> 540
+john_wick 	cevahir 11:30	13:00
+john_wick 	cevahir 13:15	14:45
+john_wick 	cevahir 15:00	16:30
+john_wick 	cevahir 16:50	18:20
+john_wick 	cevahir 18:30	20:00
+john_wick 	vadi 	20:00	21:00
+john_wick 	kanyon 	21:00	22:15
+john_wick 	kanyon 	22:40	23:55
+
+mario --> 450
+mario 		axis 	11:00	13:00
+mario 		axis 	13:10	15:10
+mario 		axis 	15:20	17:20
+mario 		axis 	17:30	19:30
+mario 		axis 	19:40	21:40
+mario 		axis 	21:45	23:45
+
+uclu_puruz --> 420
+uclu_puruz 	kanyon 	11:15	13:00
+uclu_puruz 	axis2 	13:50	15:50
+uclu_puruz 	axis2 	16:15	18:15
+uclu_puruz 	axis2 	18:40	20:40
+uclu_puruz 	axis2 	21:05	23:05
+
+kotu_ruh --> 425
+kotu_ruh	cevahir	12:35	14:20
+kotu_ruh	cevahir	14:50	16:35
+kotu_ruh	cevahir	17:15	19:00
+kotu_ruh	cevahir	19:35	21:20
+kotu_ruh	cevahir	21:55	23:40

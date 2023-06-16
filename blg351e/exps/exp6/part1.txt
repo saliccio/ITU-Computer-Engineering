@@ -1,0 +1,15 @@
+			.data
+array		.byte 00111111b, 00000110b, 01011011b, 01001111b, 01100110b, 01101101b, 01111101b, 00000111b, 01111111b, 01101111b
+lastElement
+			.text
+			
+main		mov #array,R10
+			mov #1d,R11
+			mov.b #07fh,&P1DIR
+			mov.b #00fh,&P2DIR
+loop		mov.b @R10+,&P2OUT
+			mov.b R11,&P1OUT
+			rla R11
+			cmp R11,#010h
+			jeq main
+			jmp loop

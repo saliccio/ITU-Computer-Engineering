@@ -1,0 +1,42 @@
+- init:
+    run: rm -f hw3
+    blocker: true
+
+- build:
+    run: g++ -Wall -Werror src/main.cpp src/statistics.cpp src/utils.cpp -I include -o hw3 -lm
+    exit: 0
+    points: 20
+    blocker: true
+
+###---This calico file is for you to check your code.---###
+###---Before Submitting please make sure you are passing all cases.---###
+###---This is not the grading file so taking 100 does not corresponds to full grade for your assignment---###
+###---Passing all cases shows you that your output is compatible with the grading file---###
+
+- case1:
+    run: ./hw3 test_case_1.txt
+    script: 
+        - expect: "0.696\r\n-0.048\r\n0.478\r\n-0.044\r\n0.736\r\n1.077\r\n-0.271\r\n0.105\r\n-0.883\r\n1.576\r\n"
+    exit: 0
+    points: 20
+
+- case2:
+    run: ./hw3 test_case_2.txt
+    script: 
+        - expect: "lower bound: -0.082\r\nmean: -0.013\r\nupper bound: 0.055\r\n"
+    exit: 0
+    points: 20
+
+- case3:
+    run: ./hw3 test_case_3.txt
+    script: 
+        - expect: "significance level: 0.990\r\nprecision: 0.980\r\n"
+    exit: 0
+    points: 20
+
+- case4:
+    run: ./hw3 test_case_4.txt
+    script: 
+        - expect: "Unidentified distribution function!"
+    exit: 0
+    points: 20

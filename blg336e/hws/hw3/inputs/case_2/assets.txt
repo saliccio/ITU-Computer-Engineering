@@ -1,0 +1,13 @@
+Asset Price Value
+electro_guitar 2940 3.5
+bass_guitar 2698 3.5
+baglama 1369 2
+drums 5195 7
+keyboard 4671 5.5
+clarinet 2215 3
+violin 1651 2
+back_vocals 8054 10
+light_effects 6041 7
+costume 3221 4
+sound_engineer 3826 4.5
+dancers 5437 6

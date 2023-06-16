@@ -1,0 +1,13 @@
+Total Revenue −−> 24225
+kotu_ruh	May 1	May 7
+mario		May 7	May 12
+uclu_puruz  May 12  May 16
+mario		May 16  May 20
+john_wick	May 24	May 28
+mario		May 29	June 1
+mario		June 3	June 7
+john_wick	June 7	June 11
+mario		June 11	June 16
+kotu_ruh	June 16	June 19
+mario		June 19	June 24
+john_wick	June 24	June 29

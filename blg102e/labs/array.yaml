@@ -1,0 +1,18 @@
+- compile:
+    run: gcc -c array.c -o array.o
+    blocker: true
+    points: 10
+
+- link:
+    run: gcc array.o -o array
+    points: 20
+
+- case_1:
+    run: ./array
+    script:
+      - send: "2"
+      - send: "0\n1\n2\n3\n4\n5\n6\n7\n8\n9"
+      - expect: "ORIGINAL ARRAY: 0    1    2    3    4    5    6    7    8    9"
+      - expect: "REVERSE ARRAY:  9    8    7    6    5    4    3    2    1    0"
+      - expect: _EOF_
+    points: 10

@@ -1,0 +1,36 @@
+- init:
+    run: rm -f recitation_3_1
+    blocker: true
+
+- build:
+    run: g++ -Wall -Werror src/main.cpp -o recitation_3_1 -lm # timeout: 10
+    exit: 0
+    points: 1
+    blocker: true
+
+- case1:
+    run: ./recitation_3_1
+    script: 
+        - expect: 'Input the expression in infix:' # timeout: 10
+        - send: '6-4*2+7/3*2+5'
+        - expect: '642[*]-73/2[*][+]5[+]\r\n' # timeout: 10
+        - expect: '7.67\r\n' # timeout: 10
+        - expect: 'Input the expression in infix:' # timeout: 10
+        - send: 'e'
+        - expect: _EOF_
+    exit: 0
+    points: 1 
+
+- case2:
+    run: ./recitation_3_1
+    script: 
+        - expect: 'Input the expression in infix:' # timeout: 10
+        - send: '2+3/7+5*2'
+        - expect: '237/[+]52[*][+]\r\n' # timeout: 10
+        - expect: '12.43\r\n' # timeout: 10
+        - expect: 'Input the expression in infix:' # timeout: 10
+        - send: 'e'
+        - expect: _EOF_
+    exit: 0
+    points: 1 
+

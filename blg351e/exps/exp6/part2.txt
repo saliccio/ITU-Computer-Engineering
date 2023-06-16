@@ -1,0 +1,141 @@
+;-------------------------------------------------------------------------------
+; MSP430 Assembler Code Template for use with TI Code Composer Studio
+;
+;
+;-------------------------------------------------------------------------------
+            .cdecls C,LIST,"msp430.h"       ; Include device header file
+            
+;-------------------------------------------------------------------------------
+            .def    RESET                   ; Export program entry-point to
+                                            ; make it known to linker.
+;-------------------------------------------------------------------------------
+            .text                           ; Assemble into program memory.
+            .retain                         ; Override ELF conditional linking
+                                            ; and retain current section.
+            .retainrefs                     ; And retain any sections that have
+                                            ; references to current section.
+
+;-------------------------------------------------------------------------------
+RESET       mov.w   #__STACK_END,SP         ; Initialize stackpointer
+StopWDT     mov.w   #WDTPW|WDTHOLD,&WDTCTL  ; Stop watchdog timer
+
+
+;-------------------------------------------------------------------------------
+; Main loop here
+;-------------------------------------------------------------------------------
+				.data
+array			.byte 00111111b, 00000110b, 01011011b, 01001111b, 01100110b, 01101101b, 01111101b, 00000111b, 01111111b, 01101111b
+lastElement
+seconds			.word 0
+centiseconds 	.word 0
+				.text
+			
+init			mov.b #07fh,&P1DIR
+				mov.b #00fh,&P2DIR
+				mov #centiseconds,R9
+				mov #seconds,R7
+				
+init_T			mov #0d,&TA0CCR0
+				bis #00010h,&TA0CCTL0
+				bis #00212h,&TA0CTL
+				
+init_INT 		bis.b #0e0h,&P2IE
+				mov.b #0d,&P2SEL
+				mov.b #0d,&P2SEL2
+				bis.b #0e0h,&P2IES
+				clr &P2IFG
+				eint
+				
+main			mov @R9,R10
+				mov @R7,R8
+				mov #array,R5
+ll				mov #4d,R6
+				rra R8
+				dec R6
+				jnz ll
+				add R8,@R5
+				mov #1d,&P2OUT
+				mov @R5,&P1OUT
+				mov @R7,R8
+				mov #array,R5
+				and #0000fh,R8
+				add R8,@R5
+				mov #2d,&P2OUT
+				mov @R5,&P1OUT
+				mov #array,R5
+lll				mov #4d,R6
+				rra R10
+				dec R6
+				jnz lll
+				add R10,@R5
+				mov #4d,&P2OUT
+				mov @R5,&P1OUT
+				mov @R9,R10
+				mov #array,R5
+				and #0000fh,R10
+				add R10,@R5
+				mov #8d,&P2OUT
+				mov @R5,&P1OUT
+				jmp main
+			
+ISR 			dint
+				cmp &P2IN,080h
+				jeq start_T
+				cmp &P2IN,040h
+				jeq stop_T
+				cmp &P2IN,020h
+				jeq reset_T
+start_T			mov #9999d,&TA0CCR0
+				jmp end_ISR
+stop_T			mov #0d,&TA0CCR0
+				jmp end_ISR
+reset_T			mov #0d,@R7
+				mov #0d,@R9
+end_ISR			clr &P2IFG
+				eint
+				reti
+				
+TISR 			dint
+				mov @R9,R10
+				mov @R7,R8
+				inc R10
+				and #0000fh,R10
+				cmp R10,#0000ah
+				jeq abc
+				inc @R9
+abc				and #0000fh,@R9
+				add #00010h,@R9
+				cmp #000a0h,@R9
+				jeq qwe
+				jmp bcd
+qwe				clr @R9
+				inc R8
+				and #0000fh,R8
+				cmp R8,#0000ah
+				jeq ert
+				inc @R7
+ert				and #0000fh,@R7
+				add #00010h,@R7
+				cmp #000a0h,@R7
+				jeq qaz
+				jmp bcd
+qaz				clr @R7
+bcd				bis #00010h,&TA0CCTL0
+				bis #00212h,&TA0CTL
+				eint
+				reti
+;-------------------------------------------------------------------------------
+; Stack Pointer definition
+;-------------------------------------------------------------------------------
+            .global __STACK_END
+            .sect   .stack
+            
+;-------------------------------------------------------------------------------
+; Interrupt Vectors
+;-------------------------------------------------------------------------------
+            .sect   ".reset"                ; MSP430 RESET Vector
+            .short  RESET
+			.sect ".int03"
+			.short ISR
+            .sect ".int09"
+			.short TISR

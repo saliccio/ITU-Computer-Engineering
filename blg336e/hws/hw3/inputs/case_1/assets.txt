@@ -1,0 +1,12 @@
+Asset Price Value
+Light_Equipment 968 1
+Camera 2904 4
+Mics 1839 2.5
+Decorator 1549 2.3
+Actor-1 1936 3
+Actor-2 1161 2
+Actor-3 580 1.2
+Actor-4 774 1.5
+Extras/Figurants 2323 3.2
+Caravan 1355 1.5
+Catering 387 0.5

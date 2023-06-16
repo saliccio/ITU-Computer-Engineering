@@ -1,0 +1,134 @@
+- init:
+    run: rm -f assignment2
+    blocker: true
+
+- build:
+    run: gcc -std=c99 -Wall -Werror assignment2.c -o assignment2 -lm
+    exit: 0
+    points: 10
+    blocker: true
+
+- case1:
+    run: ./assignment2
+    script: 
+        - expect: "Number of rows:"
+        - send: "5"
+        - expect: "Number of seats per row:" 
+        - send: "4"
+        - expect: "Number of aisles:"
+        - send: "1"
+        - expect: "Add aisle 1 after seat:"
+        - send: "2"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "-1"
+    exit: 0
+    points: 25
+- case2:
+    run: ./assignment2
+    script: 
+        - expect: "Number of rows:"
+        - send: "5"
+        - expect: "Number of seats per row:" 
+        - send: "4"
+        - expect: "Number of aisles:"
+        - send: "1"
+        - expect: "Add aisle 1 after seat:"
+        - send: "2"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "3"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+\+\s+\+\s+\|\s+\|\s+\+\s+-\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "-1"
+    exit: 0
+    points: 10
+- case3:
+    run: ./assignment2
+    script: 
+        - expect: "Number of rows:"
+        - send: "5"
+        - expect: "Number of seats per row:" 
+        - send: "4"
+        - expect: "Number of aisles:"
+        - send: "1"
+        - expect: "Add aisle 1 after seat:"
+        - send: "2"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "3"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+\+\s+\+\s+\|\s+\|\s+\+\s+-\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "4"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+X\s+X\s+\|\s+\|\s+X\s+-\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+\+\s+\+\s+\|\s+\|\s+\+\s+\+\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "-1"
+    exit: 0
+    points: 10
+- case4:
+    run: ./assignment2
+    script: 
+        - expect: "Number of rows:"
+        - send: "5"
+        - expect: "Number of seats per row:" 
+        - send: "4"
+        - expect: "Number of aisles:"
+        - send: "1"
+        - expect: "Add aisle 1 after seat:"
+        - send: "2"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "4"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+\+\s+\+\s+\|\s+\|\s+\+\s+\+\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "4"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+X\s+X\s+\|\s+\|\s+X\s+X\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+\+\s+\+\s+\|\s+\|\s+\+\s+\+\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "2"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+X\s+X\s+\|\s+\|\s+X\s+X\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+\+\s+\+\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+X\s+X\s+\|\s+\|\s+X\s+X\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "1"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+X\s+X\s+\|\s+\|\s+X\s+X\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+X\s+X\s+\|\s+\|\s+-\s+\+\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+X\s+X\s+\|\s+\|\s+X\s+X\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "2"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+X\s+X\s+\|\s+\|\s+X\s+X\s*\r\n2\s+-\s+-\s+\|\s+\|\s+\+\s+\+\s*\r\n3\s+X\s+X\s+\|\s+\|\s+-\s+X\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+X\s+X\s+\|\s+\|\s+X\s+X\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "5"
+        - expect: '.*No available seats for the requested reservation!.*'
+        - send: "-1"
+    exit: 0
+    points: 15
+- case5:
+    run: ./assignment2
+    script: 
+        - expect: "Number of rows:"
+        - send: "5"
+        - expect: "Number of seats per row:" 
+        - send: "4"
+        - expect: "Number of aisles:"
+        - send: "1"
+        - expect: "Add aisle 1 after seat:"
+        - send: "2"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "3"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+\+\s+\+\s+\|\s+\|\s+\+\s+-\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "4"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s*\r\n1\s+X\s+X\s+\|\s+\|\s+X\s+-\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+\+\s+\+\s+\|\s+\|\s+\+\s+\+\s*\r\nThe\s+number\s+of\s+people\s+in\s+the\s+reservation\r\n\s+\(0:\s+print\s+current\s+reservations,\s+-1:\s+exit\):.*'
+        - send: "5"
+        - expect: '.*No available seats for the requested reservation!.*'
+        - send: "-1"
+    exit: 0
+    points: 10
+- case6:
+    run: ./assignment2
+    script: 
+        - expect: "Number of rows:"
+        - send: "10"
+        - expect: "Number of seats per row:" 
+        - send: "6"
+        - expect: "Number of aisles:"
+        - send: "2"
+        - expect: "Add aisle 1 after seat:"
+        - send: "2"
+        - expect: "Add aisle 2 after seat:"
+        - send: "4"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s+\|\s+\|\s+E\s+F\s*\r\n1\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n6\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n7\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n8\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n9\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n10\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*.*'
+        - send: "5"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s+\|\s+\|\s+E\s+F\s*\r\n1\s+\+\s+\+\s+\|\s+\|\s+\+\s+\+\s+\|\s+\|\s+\+\s+-\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n6\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n7\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n8\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n9\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n10\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*.*'
+        - send: "4"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s+\|\s+\|\s+E\s+F\s*\r\n1\s+X\s+X\s+\|\s+\|\s+X\s+X\s+\|\s+\|\s+X\s+-\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n6\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n7\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n8\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n9\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n10\s+-\s+-\s+\|\s+\|\s+\+\s+\+\s+\|\s+\|\s+\+\s+\+\s*.*'
+        - send: "6"
+        - expect: '.*A\s+B\s+\|\s+\|\s+C\s+D\s+\|\s+\|\s+E\s+F\s*\r\n1\s+X\s+X\s+\|\s+\|\s+X\s+X\s+\|\s+\|\s+X\s+-\s*\r\n2\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n3\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n4\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n5\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n6\s+\+\s+\+\s+\|\s+\|\s+\+\s+\+\s+\|\s+\|\s+\+\s+\+\s*\r\n7\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n8\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n9\s+-\s+-\s+\|\s+\|\s+-\s+-\s+\|\s+\|\s+-\s+-\s*\r\n10\s+-\s+-\s+\|\s+\|\s+X\s+X\s+\|\s+\|\s+X\s+X\s*.*'
+        - send: "7"
+        - expect: '.*No available seats for the requested reservation.*'
+        - send: "-1"
+    exit: 0
+    points: 20

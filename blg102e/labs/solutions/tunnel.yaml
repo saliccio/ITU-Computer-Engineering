@@ -1,0 +1,21 @@
+- init:
+    run: rm -f tunnel
+    blocker: true
+
+- build:
+    run: gcc -std=c99 -Wall -Werror tunnel.c -o tunnel  # timeout: 2
+    blocker: true
+
+- case:
+    run: ./tunnel
+    script:
+        - send: "4"
+        - send: "2 5 10"
+        - send: "30 3 7"
+        - send: "45 8 50"
+        - send: "21 15 80"
+        - expect: "100.00\r\n"                   # timeout: 2
+        - expect: "630.00\r\n"                   # timeout: 2
+        - expect: "25200.00\r\n"                   # timeout: 2
+        - expect: _EOF_  # timeout: 2
+    exit: 0

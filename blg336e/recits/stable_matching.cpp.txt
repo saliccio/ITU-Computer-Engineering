@@ -1,0 +1,94 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+// biased towards As
+void gale_shapley(const vector<vector<int>>& preferences_A, const vector<vector<int>>& preferences_B) {
+    // Display A's preferences
+    cout << "A's preferences" << endl;
+    for (int A = 0; A < preferences_A.size(); A++) {
+        cout << "A" << A << ": ";
+        for (int j = 0; j < preferences_A[A].size(); j++) {
+            cout << preferences_A[A][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+    // Display B's preferences
+    cout << "B's preferences" << endl;
+    for (int B = 0; B < preferences_B.size(); B++) {
+        cout << "B" << B << ": ";
+        for (int j = 0; j < preferences_B[B].size(); j++) {
+            cout << preferences_B[B][j] << " ";
+        }
+        cout << endl;
+    }
+    // Initialize variables
+    int N = preferences_A.size();
+    vector<int> matchings(N, -1); // stores the current matching for each A; initially all are set to -1, indicating they are all free
+    vector<int> next_proposal_indices(N, 0); // stores the last proposal index for each A; initially all are set to 0 which indicates no proposals have been made
+    // Run the algorithm until all A's are matched
+    while (find(matchings.begin(), matchings.end(), -1) != matchings.end()) {
+        for (int A = 0; A < N; A++) {
+            if (matchings[A] != -1) { // If A is already matched, skip to the next A
+                continue;
+            }
+			// Otherwise, A is free and can propose to the next preferred B on their list
+            cout << endl;
+            vector<int> As_preferences(preferences_A[A].begin() + next_proposal_indices[A], preferences_A[A].end()); // Get A's preferences for the remaining unmatched B's
+            for (auto B : As_preferences) {
+                next_proposal_indices[A]++; // Increment the last proposal index for A
+                cout << "A" << A << "'s last proposal index-> " << next_proposal_indices[A] << endl;
+                if (find(matchings.begin(), matchings.end(), B) == matchings.end()) { // If B is unmatched, match A and B
+                    matchings[A] = B;
+                    cout << "A" << A << " matched with B" << B << " at the first trial" << endl;
+                    break;
+                }
+                else { // If B is already matched, check if it prefers A over its current match
+                    int A_ = find(matchings.begin(), matchings.end(), B) - matchings.begin(); // A_ is B's current partner
+                    cout << "B" << B << " is already matched with A_" << A_ << endl;
+                    vector<int> Bs_preferences = preferences_B[B];
+                    if (find(Bs_preferences.begin(), Bs_preferences.end(), A) < find(Bs_preferences.begin(), Bs_preferences.end(), A_)) { // If B prefers A over A_, match A and B and make the A_ free
+                        matchings[A] = B;
+                        matchings[A_] = -1;
+                        cout << "A" << A << " matched with B" << B << " and A_" << A_ << " became free" << endl;
+                        break;
+                    }
+                }
+                
+            }
+        }
+    }
+	// Display final results
+    cout << endl;
+    for (int A = 0; A < matchings.size(); A++) {
+        cout << "A" << A << " is paired with B" << matchings[A] << endl;
+    }
+}
+
+int main() {
+	//example-1
+    //vector<vector<int>> preferences_A = {{0, 1, 2}, {1, 0, 2}, {0, 1, 2}};
+    //vector<vector<int>> preferences_B = {{1, 0, 2}, {0, 1, 2}, {0, 1, 2}};
+    
+	//example-2
+	//vector<vector<int>> preferences_A = {{3, 1, 2, 0}, {1, 0, 2, 3}, {0, 1, 2, 3}, {0, 1, 2, 3}};
+    //vector<vector<int>> preferences_B = {{0, 1, 2, 3},{0, 1, 2, 3},{0, 1, 2, 3},{0, 1, 2, 3}};
+    
+	//example-3
+	vector<vector<int>> preferences_A = {{3, 4, 0, 1, 2}, {4, 1, 3, 0, 2}, {0, 4, 2, 1, 3}, {4, 1, 2, 3, 0}, {3, 0, 2, 1, 4}};
+    vector<vector<int>> preferences_B = {{3, 2, 1, 4, 0}, {4, 2, 3, 0, 1}, {4, 0, 1, 2, 3}, {4, 2, 0, 3, 1}, {1, 2, 3, 0, 4}};
+    
+    //example-kismetse olur
+	//vector<vector<int>> preferences_A = {{1,0,3,4,2}, {3,1,0,2,4}, {1,4,2,3,0}, {0,3,2,1,4}, {1,3,0,4,2}};
+    //vector<vector<int>> preferences_B = {{4,0,1,3,2}, {2,1,3,0,4}, {1,2,3,4,0}, {0,4,3,2,1}, {3,1,4,2,0}};
+    
+    
+	gale_shapley(preferences_A, preferences_B);
+    return 0;
+
+    //important sites
+    //http://sephlietz.com/gale-shapley/ -> to check solution is correct
+    //https://www.onlinegdb.com/online_c++_compiler -> to run online
+}

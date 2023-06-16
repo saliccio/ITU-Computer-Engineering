@@ -1,0 +1,38 @@
+- init:
+    run: rm -f recitatiton2
+    blocker: true
+
+- build:
+    run: g++ -Wall -Werror src/main.cpp src/linkedList.cpp -I include -o recitation2 -lm
+    exit: 0
+    points: 1
+    blocker: true
+
+- case1:
+    run: ./recitation2 input.txt
+    script: 
+        - expect: '.*Readed\s+letters\s+in\s+linked\s+list:\s+Y\s+Z\s+A\s+K\s+L\s+M\s+U\s+K\s+A\s+V\s+C\s+A\s+T\s+D\s+E\s+H\s+B\s+I\s+E\s+J\s+G\s+B\s+P\s+Q\s+R\s+R.*'
+    exit: 0
+    points: 0 
+
+- case2:
+    run: ./recitation2 input.txt
+    script: 
+        - expect: '.*After\s+reordering:\s+A\s+A\s+A\s+B\s+B\s+C\s+D\s+E\s+E\s+G\s+H\s+I\s+J\s+K\s+K\s+L\s+M\s+P\s+Q\s+R\s+R\s+T\s+U\s+V\s+Y\s+Z.*'
+
+    exit: 0
+    points: 1
+
+- case3:
+    run: ./recitation2 input.txt
+    script: 
+        - expect: '.*After\s+removing\s+dublicates:\s+A\s+B\s+C\s+D\s+E\s+G\s+H\s+I\s+J\s+K\s+L\s+M\s+P\s+Q\s+R\s+T\s+U\s+V\s+Y\s+Z.*'
+    exit: 0
+    points: 1
+
+- case4:
+    run: ./recitation2 input.txt
+    script: 
+        - expect: '.*Reversed\s+list:\s+Z\s+Y\s+V\s+U\s+T\s+R\s+Q\s+P\s+M\s+L\s+K\s+J\s+I\s+H\s+G\s+E\s+D\s+C\s+B\s+A.*'
+    exit: 0
+    points: 1

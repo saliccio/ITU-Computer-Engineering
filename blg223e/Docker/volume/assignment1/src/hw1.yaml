@@ -1,0 +1,80 @@
+- init:
+    run: rm -f hw1
+    blocker: true
+
+- build:
+    run: g++ -Wall src/main.cpp src/linkedList.cpp -I include -o hw1 -lm
+    exit: 0
+    points: 20
+    blocker: true
+
+- case1:
+    run: ./hw1
+    script: 
+        - expect: '.*'
+        - send: "3"
+        - expect: '.*.*Train\s+cargo\s+info(\r\n)*Train\s+is\s+empty!!!(\r\n)*'
+        - send: "1"
+        - expect: '.*'
+        - send: "C"
+        - expect: '.*'
+        - send: "3000"
+        - expect: '.*'
+        - send: "4"
+    exit: 0
+    points: 20
+
+- case2:
+    run: ./hw1
+    script: 
+        - expect: '.*'
+        - send: "1"
+        - expect: '.*'
+        - send: "C"
+        - expect: '.*'
+        - send: "3000"
+        - expect: '.*'
+        - send: "1"
+        - expect: '.*'
+        - send: "A"
+        - expect: '.*'
+        - send: "4500"
+        - expect: '.*'
+        - send: "1"
+        - expect: '.*'
+        - send: "D"
+        - expect: '.*'
+        - send: "2500"
+        - expect: '.*Train cargo info(\r\n)*1. Wagon:(\r\n)*A: 2000KG, C: 2000KG, D: 2000KG,\s+(\r\n)*2. Wagon:(\r\n)*A: 2000KG, C: 1000KG, D: 500KG,\s+(\r\n)*3. Wagon:(\r\n)*A: 500KG,\s+(\r\n)*Welcome\s+to\s+train\s+station!(\r\n)*What\s+would\s+you\s+like\s+to\s+do\?(\r\n)*1\s+-\s+Load\s+Weight(\r\n)*2\s+-\s+Unload Weight(\r\n)*3\s+-\s+Print\s+train\s+info(\r\n)*4\s+-\s+Exit.*'
+        - send: "1"
+        - expect: '.*.*Which\s+material\s+you\s+would\s+like\s+to\s+load\?(\r\n)*A\s+-\s+Glass(\r\n)*B\s+-\s+Oak(\r\n)*C\s+-\s+Coal(\r\n)*D\s+-\s+Iron.*.*'
+        - send: "B"
+        - expect: '.*Enter\s+desired\s+weight\s+to\s+be\s+loaded.*'
+        - send: "3500"
+        - expect: '.*Train cargo info(\r\n)*1. Wagon:(\r\n)*A: 2000KG, B: 2000KG, C: 2000KG, D: 2000KG,\s+(\r\n)*2. Wagon:(\r\n)*A: 2000KG, B: 1500KG, C: 1000KG, D: 500KG,\s+(\r\n)*3. Wagon:(\r\n)*A: 500KG,\s+(\r\n)*Welcome\s+to\s+train\s+station!(\r\n)*What\s+would\s+you\s+like\s+to\s+do\?(\r\n)*1\s+-\s+Load\s+Weight(\r\n)*2\s+-\s+Unload Weight(\r\n)*3\s+-\s+Print\s+train\s+info(\r\n)*4\s+-\s+Exit.*'
+        - send: "4"
+    exit: 0
+    points: 20
+
+
+- case3:
+    run: ./hw1
+    script: 
+        - expect: '.*'
+        - send: "3"
+        - expect: '.*Train\s+cargo\s+info(\r\n)*Train\s+is\s+empty!!!(\r\n)*'
+        - send: "1"
+        - expect: '.*'
+        - send: "C"
+        - expect: '.*'
+        - send: "3000"
+        - expect: '.*'
+        - send: "2"
+        - expect: '.*'
+        - send: "C"
+        - expect: '.*Enter\s+desired\s+weight\s+to\s+be\s+unloaded.*'
+        - send: "500"
+        - expect: '.*Train cargo info\s+1. Wagon:\s+C: 2000KG,\s+(\r\n)*2. Wagon:\s+C: 500KG,\s+(\r\n)*'
+        - send: "4"
+    exit: 0
+    points: 20

@@ -1,0 +1,33 @@
+- _define:
+    vars:
+    prompt:
+
+- clear:
+    run: rm bin/app
+
+- compile1:
+    run: g++ -g -std=c++11 -I include -Wall -Werror src/main.cpp src/huffman.cpp -o bin/app
+    points: 1
+
+- compile_as_tolerated:
+    run: g++ src/main.cpp src/huffman.cpp -I include -o bin/app
+
+- check_case1:
+    run: ./bin/app
+    points: 3
+    script:
+        - expect: ".*Enter a choice .*.:\\s+" # timeout: 8
+        - send: "R"
+        - expect: ".*Enter a choice .*:\\s+" #timeout: 8
+        - send: "G"
+        - expect: "Type symbol whose code that you want to see:" #timeout: 8
+        - send: "E"
+        - expect: "Code of E is 110.*Enter a choice .*:\\s+" #timeout: 8
+        - send: "C"
+        - expect: "Compression ratio is 3.2.*Enter a choice .*:\\s+" #timeout: 8
+        - send: "E"
+        - expect: ".*you sure you want to exit the .*:" #timeout: 8
+        - send: "Y"
+        - expect: _EOF_
+    exit: 0 
+ 

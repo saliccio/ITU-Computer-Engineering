@@ -1,0 +1,44 @@
+- init:
+    run: rm -f shapes
+    blocker: true
+
+- build:
+    run: gcc -Wall -Werror shapes.c -o shapes
+    exit: 0
+    points: 10
+    
+- case1:
+    run: ./shapes
+    script:
+        - expect: "Enter the shape type, e.g., rectangle, square, or circle\r\n"
+        - send: "c"
+        - expect: "Enter the radius of the circle\r\n"
+        - send: "5"
+        - expect: "Circumference: 31.415927\r\n"
+        - expect: "Area: 78.539816\r\n"
+    exit: 0
+    points: 10
+
+- case2:
+    run: ./shapes
+    script:
+        - expect: "Enter the shape type, e.g., rectangle, square, or circle\r\n"
+        - send: "s"
+        - expect: "Enter the side length of the square\r\n"
+        - send: "25"
+        - expect: "Perimeter: 100.000000\r\n"
+        - expect: "Area: 625.000000\r\n"
+    exit: 0
+    points: 10
+    
+- case3:
+    run: ./shapes
+    script:
+        - expect: "Enter the shape type, e.g., rectangle, square, or circle\r\n"
+        - send: "r"
+        - expect: "Enter the side lengths of the rectangle\r\n"
+        - send: "12 13"
+        - expect: "Perimeter: 50.000000\r\n"
+        - expect: "Area: 156.000000\r\n"
+    exit: 0
+    points: 10

@@ -1,0 +1,28 @@
+- init:
+    run: rm -f q2.o q2
+    blocker: true
+
+- build:
+    run: gcc -std=c99 -Wall -Werror q2.c -o q2
+    blocker: true
+
+- case1:
+    run: ./q2
+    script:
+        - expect: "Phrase: "
+        - send: "abbbbccdd"
+        - expect: "a:1 b:4 c:2 d:2"
+
+- case2:
+    run: ./q2
+    script:
+        - expect: "Phrase: "
+        - send: "attempt"
+        - expect: "a:1 t:2 e:1 m:1 p:1 t:1"
+
+- case3:
+    run: ./q2
+    script:
+        - expect: "Phrase: "
+        - send: "mississippi"
+        - expect: "m:1 i:1 s:2 i:1 s:2 i:1 p:2 i:1"

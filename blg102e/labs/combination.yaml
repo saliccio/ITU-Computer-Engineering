@@ -1,0 +1,31 @@
+- init:
+    run: rm -f comb
+    blocker: true
+
+- build:
+    run: gcc -std=c99 -Wall -Werror comb.c -o comb
+    blocker: true
+
+- case1:
+    run: ./comb
+    points: 10
+    script:
+        - send: "4 2"
+        - expect: "6"
+    exit: 0
+
+- case2:
+    run: ./comb
+    points: 10
+    script:
+        - send: "4 4"
+        - expect: "1"
+    exit: 0
+
+- case3:
+    run: ./comb
+    points: 10
+    script:
+        - send: "8 2"
+        - expect: "28"
+    exit: 0

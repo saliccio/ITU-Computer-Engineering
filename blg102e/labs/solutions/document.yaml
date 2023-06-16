@@ -1,0 +1,37 @@
+- init:
+    run: rm -f document
+    blocker: true
+
+- build:
+    run: gcc -std=c99 -Wall -Werror document.c -o document  # timeout: 2
+    blocker: true
+
+- case_1:
+    run: ./document
+    script:
+        - expect: ".*Query Type : "  # timeout: 2
+        - send: "1"
+        - send: "0"
+        - expect: "Thinking of you is pretty hopeful.It is like listening to the most beautiful song from the most beautiful voice on earth."  # timeout: 2
+        - expect: _EOF_  # timeout: 2
+    exit: 0
+ 
+- case_2:
+    run: ./document
+    script:
+        - expect: ".*Query Type : "  # timeout: 2
+        - send: "2"
+        - send: "1 0"
+        - expect: "It is like listening to the most beautiful song from the most beautiful voice on earth"  # timeout: 2
+        - expect: _EOF_  # timeout: 2
+    exit: 0
+    
+- case_3:
+    run: ./document
+    script:
+        - expect: ".*Query Type : "  # timeout: 2
+        - send: "3"
+        - send: "7 1 0"
+        - expect: "beautiful"  # timeout: 2
+        - expect: _EOF_  # timeout: 2
+    exit: 0

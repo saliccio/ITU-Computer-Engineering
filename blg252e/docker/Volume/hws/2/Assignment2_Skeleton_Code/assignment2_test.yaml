@@ -1,0 +1,243 @@
+- init:
+    run: rm -f hw2
+    blocker: true
+
+- build:
+    run: g++ -Wall -Werror src/main.cpp src/Robot.cpp src/CommandCenter.cpp -I include -o assignment2
+    exit: 0
+    points: 20
+    blocker: true
+
+###---This calico file is for you to check your code.---###
+###---Before Submitting please make sure you are passing all cases.---###
+###---This is not the grading file so taking 100 does not corresponds to full grade for your assignment---###
+###---Passing all cases will show you that your output has compatible with the grading file---###
+
+- case1:
+    run: ./assignment2
+    script: 
+        - expect: 'Welcome to the Command Station Chief!(.*)Prepare your Robot Crew and start mining!(.*)Throughout the game you can expand your crew.(.*)What should be your maximum explorer crew size (1-5)?'
+        - send: "-1"
+
+        - expect: 'What should be your maximum miner crew size (1-5)?'
+        - send: "6"
+
+        - expect: 'How many explorers will you manufacture now?'
+        - send: "-2"
+
+        - expect: 'How many miners will you manufacture now?'
+        - send: "7"
+
+        - expect: 'explorerCrew Size:2(.*)minerCrew Size:2(.*)Total manufacture cost: 16000(.*)Total maintenance cost: 0(.*)Choice:'
+        - send: "1" #
+
+        - expect: 'Current turn: 1(.*)Aim: 800 selenium.(.*)Collected: 0(.*)Total Search Area: 13500(.*)Explored Area: 3000(.*)1 area/s that include selenium.(.*)Choice:'
+        - send: "2"
+
+        - expect: 'mnr-4 can''t take an action Chief!(.*)Current turn: 1(.*)Collected: 165(.*)0 area/s(.*)Choice:'
+        - send: "1"
+
+        - expect: 'exp-1 can''t take(.*)exp-2 can''t take(.*)0 area/s(.*)Choice:'
+        - send: "2"
+
+        - expect: 'mnr-3 can''t take(.*)mnr-4 can''t take(.*)Collected: 165(.*)Choice:'
+        - send: "5"
+        # In below, expect-send block, first line is examplary. Information of other robots are expected also.
+        - expect: 'explorerCrew Size:2(.*)minerCrew Size:2(.*)Name: exp-1(.*)Speed: 2.3746(.*)Durability: 3(.*)ManufactureCost: 3000(.*)MaintenanceCost: 189.506(.*)Can Move: 0(.*)explored area: 1500(.*)Total maintenance cost: 925.889(.*)Choice:'
+        - send: "7"
+
+        - expect: 'Turn ends...(.*)Profit:-11975.9(.*)Expenses:16925.9(.*)Selenium Revenue:4950(.*)Choice:'
+        - send: "1" 
+
+        - expect: 'Current turn: 2(.*)Aim: 800 selenium.(.*)Collected: 165(.*)Total Search Area: 13500(.*)Explored Area: 6000(.*)there are 2 area/s that include selenium.(.*)Choice:'
+        - send: "2"
+
+        - expect: 'Collected: 360(.*)0 area/s that include selenium.(.*)Choice:'
+        - send: "7" 
+
+        - expect: 'Turn ends...(.*)Profit:-7611.71(.*)Expenses:18411.7(.*)Selenium Revenue:10800(.*)Choice:'
+        - send: "4" 
+
+        - expect: 'Enter the name of the robot that you want to disassemble'
+        - send: "exp-1"
+
+        - expect: 'exp-1: (.*)Goodbye(.*)explorerCrew Size:1(.*)minerCrew Size:2(.*)Choice:'
+        - send: "3"
+
+        - expect: 'Type:'
+        - send: "explorer"
+
+        - expect: 'explorerCrew Size:2(.*)minerCrew Size:2(.*)Choice:'
+        - send: "1"
+
+        - expect: 'Current turn: 3(.*)Aim: 800 selenium.(.*)Collected: 360(.*)Total Search Area: 13500(.*)Explored Area: 7500(.*)there are 0 area/s that include selenium.(.*)Choice:'
+        - send: "2"        
+
+        - expect: 'mnr-3 can''t take an action Chief!(.*)mnr-4 can''t take an action Chief!(.*)Collected: 360(.*)0 area/s that include selenium.(.*)Choice:'
+        - send: "7" 
+
+        - expect: 'Turn ends...(.*)-10819.3(.*)21619.3(.*)10800(.*)Choice:' 
+        - send: "1" 
+
+        - expect: 'Current turn: 4(.*)Aim: 800 selenium.(.*)Collected: 360(.*)Total Search Area: 13500(.*)Explored Area: 10500(.*)there are 1 area/s that include selenium.(.*)Choice:'
+        - send: "2"
+
+        - expect: 'Collected: 735(.*)0 area/s that include selenium.(.*)Choice:'
+        - send: "4" 
+
+        - expect: 'Enter the name of the robot that you want to disassemble'
+        - send: "mnr-4"
+
+        - expect: 'mnr-4: (.*)Goodbye(.*)explorerCrew Size:2(.*)minerCrew Size:1(.*)Choice:'
+        - send: "3"
+
+        - expect: 'Type:'
+        - send: "miner"
+
+        - expect: 'explorerCrew Size:2(.*)minerCrew Size:2(.*)Choice:'
+        - send: "3"
+        
+        - expect: 'Type:'
+        - send: "explorer"
+
+        - expect: 'This robot cannot be added, check maximum size of the crew(.*)explorerCrew Size:2(.*)minerCrew Size:2(.*)Choice:'
+        - send: "7"
+
+        - expect: 'Turn ends...(.*)-5538.61(.*)27588.6(.*)22050(.*)Choice:'
+        - send: "4"
+
+        - expect: 'Enter the name of the robot that you want to disassemble'
+        - send: "mnr-6"
+        
+        - expect: 'mnr-6: (.*)Goodbye(.*)explorerCrew Size:2(.*)minerCrew Size:1(.*)Choice:'
+        - send: "4"
+
+        - expect: 'Enter the name of the robot that you want to disassemble'
+        - send: "mnr-3"
+
+        - expect: 'mnr-3: (.*)Goodbye(.*)explorerCrew Size:2(.*)minerCrew Size:1(.*)Choice:'
+        - send: "1"
+
+        - expect: 'Current turn: 5(.*)Aim: 800 selenium.(.*)Collected: 735(.*)Total Search Area: 13500(.*)Explored Area: 13500(.*)there are 1 area/s that include selenium.(.*)Choice:'
+        - send: "2"
+
+        - expect: 'Collected: 1055(.*)0 area/s that include selenium.(.*)Choice:'
+        - send: "7"
+
+        - expect: 'Congrats!'
+    exit: 0
+    points: 40
+- case2:
+    run: valgrind --leak-check=full -s ./assignment2 --track-origins=yes
+    script:
+    - expect: 'Welcome to the Command Station Chief!(.*)Prepare your Robot Crew and start mining!(.*)Throughout the game you can expand your crew.(.*)What should be your maximum explorer crew size (1-5)?'
+    - send: "-1"
+
+    - expect: 'What should be your maximum miner crew size (1-5)?'
+    - send: "6"
+
+    - expect: 'How many explorers will you manufacture now?'
+    - send: "-2"
+
+    - expect: 'How many miners will you manufacture now?'
+    - send: "7"
+
+    - expect: 'explorerCrew Size:2(.*)minerCrew Size:2(.*)Total manufacture cost: 16000(.*)Total maintenance cost: 0(.*)Choice:'
+    - send: "1" 
+
+    - expect: 'Current turn: 1(.*)Aim: 800 selenium.(.*)Collected: 0(.*)Total Search Area: 13500(.*)Explored Area: 3000(.*)1 area/s that include selenium.(.*)Choice:'
+    - send: "2"
+
+    - expect: 'mnr-4 can''t take an action Chief!(.*)Current turn: 1(.*)Collected: 165(.*)0 area/s(.*)Choice:'
+    - send: "1"
+
+    - expect: 'exp-1 can''t take(.*)exp-2 can''t take(.*)0 area/s(.*)Choice:'
+    - send: "2"
+
+    - expect: 'mnr-3 can''t take(.*)mnr-4 can''t take(.*)Collected: 165(.*)Choice:'
+    - send: "5"
+    # In below, expect-send block, first line is examplary. Information of other robots are expected also.
+    - expect: 'explorerCrew Size:2(.*)minerCrew Size:2(.*)Name: exp-1(.*)Speed: 2.3746(.*)Durability: 3(.*)ManufactureCost: 3000(.*)MaintenanceCost: 189.506(.*)Can Move: 0(.*)explored area: 1500(.*)Total maintenance cost: 925.889(.*)Choice:'
+    - send: "7"
+
+    - expect: 'Turn ends...(.*)Profit:-11975.9(.*)Expenses:16925.9(.*)Selenium Revenue:4950(.*)Choice:'
+    - send: "1" 
+
+    - expect: 'Current turn: 2(.*)Aim: 800 selenium.(.*)Collected: 165(.*)Total Search Area: 13500(.*)Explored Area: 6000(.*)there are 2 area/s that include selenium.(.*)Choice:'
+    - send: "2"
+
+    - expect: 'Collected: 360(.*)0 area/s that include selenium.(.*)Choice:'
+    - send: "7" 
+
+    - expect: 'Turn ends...(.*)Profit:-7611.71(.*)Expenses:18411.7(.*)Selenium Revenue:10800(.*)Choice:'
+    - send: "4" 
+
+    - expect: 'Enter the name of the robot that you want to disassemble'
+    - send: "exp-1"
+
+    - expect: 'exp-1: (.*)Goodbye(.*)explorerCrew Size:1(.*)minerCrew Size:2(.*)Choice:'
+    - send: "3"
+
+    - expect: 'Type:'
+    - send: "explorer"
+
+    - expect: 'explorerCrew Size:2(.*)minerCrew Size:2(.*)Choice:'
+    - send: "1"
+
+    - expect: 'Current turn: 3(.*)Aim: 800 selenium.(.*)Collected: 360(.*)Total Search Area: 13500(.*)Explored Area: 7500(.*)there are 0 area/s that include selenium.(.*)Choice:'
+    - send: "2"        
+
+    - expect: 'mnr-3 can''t take an action Chief!(.*)mnr-4 can''t take an action Chief!(.*)Collected: 360(.*)0 area/s that include selenium.(.*)Choice:'
+    - send: "7" 
+
+    - expect: 'Turn ends...(.*)-10819.3(.*)21619.3(.*)10800(.*)Choice:' 
+    - send: "1" 
+    - expect: 'Current turn: 4(.*)Aim: 800 selenium.(.*)Collected: 360(.*)Total Search Area: 13500(.*)Explored Area: 10500(.*)there are 1 area/s that include selenium.(.*)Choice:'
+    - send: "2"
+
+    - expect: 'Collected: 735(.*)0 area/s that include selenium.(.*)Choice:'
+    - send: "4" 
+
+    - expect: 'Enter the name of the robot that you want to disassemble'
+    - send: "mnr-4"
+
+    - expect: 'mnr-4: (.*)Goodbye(.*)explorerCrew Size:2(.*)minerCrew Size:1(.*)Choice:'
+    - send: "3"
+
+    - expect: 'Type:'
+    - send: "miner"
+
+    - expect: 'explorerCrew Size:2(.*)minerCrew Size:2(.*)Choice:'
+    - send: "3"
+    
+    - expect: 'Type:'
+    - send: "explorer"
+
+    - expect: 'This robot cannot be added, check maximum size of the crew(.*)explorerCrew Size:2(.*)minerCrew Size:2(.*)Choice:'
+    - send: "7"
+
+    - expect: 'Turn ends...(.*)-5538.61(.*)27588.6(.*)22050(.*)Choice:'
+    - send: "4"
+
+    - expect: 'Enter the name of the robot that you want to disassemble'
+    - send: "mnr-6"
+    
+    - expect: 'mnr-6: (.*)Goodbye(.*)explorerCrew Size:2(.*)minerCrew Size:1(.*)Choice:'
+    - send: "4"
+
+    - expect: 'Enter the name of the robot that you want to disassemble'
+    - send: "mnr-3"
+
+    - expect: 'mnr-3: (.*)Goodbye(.*)explorerCrew Size:2(.*)minerCrew Size:1(.*)Choice:'
+    - send: "1"
+
+    - expect: 'Current turn: 5(.*)Aim: 800 selenium.(.*)Collected: 735(.*)Total Search Area: 13500(.*)Explored Area: 13500(.*)there are 1 area/s that include selenium.(.*)Choice:'
+    - send: "2"
+
+    - expect: 'Collected: 1055(.*)0 area/s that include selenium.(.*)Choice:'
+    - send: "7"
+
+    - expect: 'Congrats!'
+    - expect: '(.*)All heap blocks were freed -- no leaks are possible(.*)'
+    exit: 0
+    points: 40

@@ -1,0 +1,22 @@
+- init:
+    run: rm -f assignment3
+    blocker: true
+
+- build:
+    run: gcc -std=c99 -Wall -Werror assignment3.c -o assignment3
+    exit: 0
+    blocker: true
+
+- case1:
+    run: ./assignment3 votes.txt
+    script:
+        - expect: "Winner: C"
+    exit: 0
+    points: 10
+
+- case2:
+    run: ./assignment3 votes2.txt
+    script:
+        - expect: "Second round: D and A"
+    exit: 0
+    points: 10

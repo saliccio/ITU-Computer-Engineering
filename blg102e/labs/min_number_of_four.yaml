@@ -1,0 +1,44 @@
+- init:
+    run: rm -f min_number_of_four
+    blocker: true
+
+- build:
+    run: gcc -Wall -Werror min_number_of_four.c -o min_number_of_four
+    exit: 0
+    points: 10
+    
+- case1:
+    run: ./min_number_of_four
+    script:
+        - expect: "Enter the numbers\r\n"
+        - send: "4 3 2 1"
+        - expect: "1"
+    exit: 0
+    points: 10
+    
+- case2:
+    run: ./min_number_of_four
+    script:
+        - expect: "Enter the numbers\r\n"
+        - send: "1 2 3 4"
+        - expect: "1"
+    exit: 0
+    points: 10
+
+- case3:
+    run: ./min_number_of_four
+    script:
+        - expect: "Enter the numbers\r\n"
+        - send: "3 4 6 5"
+        - expect: "3"
+    exit: 0
+    points: 10
+    
+- case4:
+    run: ./min_number_of_four
+    script:
+        - expect: "Enter the numbers\r\n"
+        - send: "13435413 54635451 56415213 -234354"
+        - expect: "-234354"
+    exit: 0
+    points: 10

@@ -1,0 +1,9 @@
+Total Revenue −−> 10240
+Torium_Sahne	May 5	May 9
+Cevahir_Salon	May 10	May 14
+Trump_Sahne		May 14	May 17
+Cevahir_Salon	May 17	May 22
+Torium_Sahne	May 24	May 30
+Trump_Sahne		June 1	June 8
+Trump_Sahne		June 11	June 16
+Trump_Sahne		June 19	June 24

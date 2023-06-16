@@ -1,0 +1,13 @@
+PlaceName SalonNo Capacity
+john_wick cevahir 70
+john_wick kanyon 65
+john_wick vadi 60
+mario axis 75
+mario axis2 70
+mario zorlu 65
+uclu_puruz axis 75
+uclu_puruz axis2 85
+uclu_puruz kanyon 80
+kotu_ruh cevahir 85
+kotu_ruh istinyepark 80
+kotu_ruh vadi 75

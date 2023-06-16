@@ -1,0 +1,104 @@
+- _define:
+    vars:
+    prompt:
+
+- clear:
+    run: rm bin/app
+
+- ifyousubmit:
+    run: ls
+    points: 0.5
+
+- compile1:
+    run: g++ -g -std=c++11 -I include -Wall -Werror src/main.cpp src/huffman.cpp -o bin/app
+    points: 0.5
+
+- compile_as_tolerated:
+    run: g++ src/main.cpp src/huffman.cpp -I include -o bin/app
+
+- check_case1:
+    run: ./bin/app
+    points: 0.5
+    script:
+        - expect: ".*Enter a choice .*.:\\s+" # timeout: 8
+        - send: "R"
+        - expect: ".*Enter a choice .*:\\s+" #timeout: 8
+        - send: "G"
+        - expect: "Type symbol whose code that you want to see:" #timeout: 8
+        - send: "M"
+        - expect: "Code of M is 11111.*Enter a choice .*:\\s+" #timeout: 8
+        - send: "E"
+        - expect: ".*sure you want to exit the.*:" #timeout: 8
+        - send: "Y"
+        - expect: _EOF_
+    exit: 0 
+    
+- check_case2:
+    run: ./bin/app
+    points: 0.5
+    script:
+        - expect: ".*Enter a choice .*.:\\s+" # timeout: 8
+        - send: "R"
+        - expect: ".*Enter a choice .*:\\s+" #timeout: 8
+        - send: "G"
+        - expect: "Type symbol whose code that you want to see:" #timeout: 8
+        - send: "S"
+        - expect: "Code of S is 11110.*Enter a choice .*:\\s+" #timeout: 8
+        - send: "E"
+        - expect: ".*sure you want to exit the.*:" #timeout: 8
+        - send: "Y"
+        - expect: _EOF_
+    exit: 0 
+    
+- check_case3:
+    run: ./bin/app
+    points: 0.5
+    script:
+        - expect: ".*Enter a choice .*.:\\s+" # timeout: 8
+        - send: "R"
+        - expect: ".*Enter a choice .*:\\s+" #timeout: 8
+        - send: "G"
+        - expect: "Type symbol whose code that you want to see:" #timeout: 8
+        - send: "A"
+        - expect: "Code of A is 101.*Enter a choice .*:\\s+" #timeout: 8
+        - send: "E"
+        - expect: ".*sure you want to exit the.*:" #timeout: 8
+        - send: "Y"
+        - expect: _EOF_
+    exit: 0 
+
+- check_case4:
+    run: ./bin/app
+    points: 0.5
+    script:
+        - expect: ".*Enter a choice .*.:\\s+" # timeout: 8
+        - send: "R"
+        - expect: ".*Enter a choice .*:\\s+" #timeout: 8
+        - send: "G"
+        - expect: "Type symbol whose code that you want to see:" #timeout: 8
+        - send: "V"
+        - expect: "Code of V is 1101110.*Enter a choice .*:\\s+" #timeout: 8
+        - send: "E"
+        - expect: ".*sure you want to exit the.*:" #timeout: 8
+        - send: "Y"
+        - expect: _EOF_
+    exit: 0 
+
+- check_CompressionRatio:
+    run: ./bin/app
+    points: 1
+    script:
+        - expect: ".*Enter a choice .*.:\\s+" # timeout: 8
+        - send: "R"
+        - expect: ".*Enter a choice .*:\\s+" #timeout: 8
+        - send: "G"
+        - expect: "Type symbol whose code that you want to see:" #timeout: 8
+        - send: "L"
+        - expect: "Code of L is 1110.*Enter a choice .*:\\s+" #timeout: 8
+        - send: "C"
+        - expect: "Compression ratio is 1.9.*Enter a choice .*:\\s+" #timeout: 8
+        - send: "E"
+        - expect: ".*sure you want to exit the.*:" #timeout: 8
+        - send: "Y"
+        - expect: _EOF_
+    exit: 0 

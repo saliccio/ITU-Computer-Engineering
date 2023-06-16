@@ -1,0 +1,28 @@
+- init:
+    run: rm -f assignment1
+    blocker: true
+
+- build:
+    run: gcc -std=c99 -Wall -Werror assignment1.c -o assignment1  # timeout: 2
+    blocker: true
+
+- case_1:
+    run: ./assignment1
+    script:
+        - expect: "0-0\r\n"         # timeout: 2
+        - expect: "Point: "         # timeout: 2
+        - send: "1"
+        - expect: "15-0\r\n"        # timeout: 2
+        - expect: "Point: "         # timeout: 2
+        - send: "1"
+        - expect: "30-0\r\n"        # timeout: 2
+        - expect: "Point: "         # timeout: 2
+        - send: "1"
+        - expect: "40-0\r\n"        # timeout: 2
+        - expect: "Point: "         # timeout: 2
+        - send: "2"
+        - expect: "40-15\r\n"       # timeout: 2
+        - expect: "Point: "         # timeout: 2
+        - send: "1"
+        - expect: "GAME: PLAYER 1"  # timeout: 2
+    exit: 0

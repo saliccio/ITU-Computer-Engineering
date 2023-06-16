@@ -1,0 +1,16 @@
+- clear:
+    run: rm bin/main
+
+- compile:
+    run: g++ src/main.cpp src/StudentsTrie.cpp -I include -o bin/main
+    points: 1.0
+    blocker: true
+
+- check_case1:
+    run: ./bin/main BLG223E_students_subset.txt
+    points: 3.0
+    script:
+        - expect: " *040190382 +070190148 +090180343 +150120281 +150140130 +150160145 +150160150 +150160505 +150180096 +150180097 *\n*"
+        - expect: " *150190053 +150190054 +150190055 +150200911 +150200912 +150200913 +504202502 *\n*" # timeout: 8
+        - expect: _EOF_
+    exit: 0 

@@ -1,0 +1,33 @@
+- init:
+    run: rm -f recitation_6_2
+    blocker: true
+
+- build:
+    run: g++ -Wall -Werror main.cpp -o recitation_6_2 -lm # timeout: 10
+    exit: 0
+    points: 1
+    blocker: true
+
+- case1:
+    run: ./recitation_6_2 orders.txt
+    script: 
+        - expect: 'Choose an operation(\r\n)L: List 5 products with the highest revenue for total(\r\n)D: List 5 products with the highest revenue for each day(\r\n)E: Exit(\r\n)Enter a choice {L, D, E}: ' # timeout: 10
+        - send: 'L'
+        - expect: '5 products with the highest revenue for total are:(\r\n)meat 252.00(\r\n)egg 232.40(\r\n)cornflakes 210.00(\r\n)milk 208.80(\r\n)oil 208.50(\r\n)' # timeout: 10
+        - send: 'E'
+        - expect: _EOF_
+    exit: 0
+    points: 1 
+
+- case2:
+    run: ./recitation_6_2 orders.txt
+    script: 
+        - expect: 'Choose an operation(\r\n)L: List 5 products with the highest revenue for total(\r\n)D: List 5 products with the highest revenue for each day(\r\n)E: Exit(\r\n)Enter a choice {L, D, E}: ' # timeout: 10
+        - send: 'D'
+        - expect: '5 products with the highest revenue for Monday are:(\r\n)egg 53.20(\r\n)milk 39.60(\r\n)oil 36.00(\r\n)bread 32.00(\r\n)fish 31.20(\r\n)5 products with the highest revenue for Sunday are:(\r\n)cornflakes 39.00(\r\n)oil 37.50(\r\n)meat 35.00(\r\n)egg 32.20(\r\n)tomato 31.90(\r\n)5 products with the highest revenue for Tuesday are:(\r\n)meat 45.50(\r\n)bread 43.00(\r\n)oil 36.00(\r\n)cornflakes 36.00(\r\n)tomato 33.00(\r\n)5 products with the highest revenue for Wednesday are:(\r\n)cornflakes 36.00(\r\n)oil 33.00(\r\n)milk 31.20(\r\n)egg 29.40(\r\n)meat 24.50(\r\n)5 products with the highest revenue for Thursday are:(\r\n)meat 50.75(\r\n)fish 40.30(\r\n)tomato 36.30(\r\n)milk 28.80(\r\n)oil 27.00(\r\n)5 products with the highest revenue for Friday are:(\r\n)milk 46.80(\r\n)meat 36.75(\r\n)egg 32.20(\r\n)tomato 25.30(\r\n)fish 23.40(\r\n)5 products with the highest revenue for Saturday are:(\r\n)egg 47.60(\r\n)meat 45.50(\r\n)tomato 36.30(\r\n)cornflakes 36.00(\r\n)fish 28.60(\r\n)'
+        - send: 'E'
+        - expect: _EOF_
+    exit: 0
+    points: 1 
+
+

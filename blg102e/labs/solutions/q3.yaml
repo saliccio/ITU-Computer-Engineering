@@ -1,0 +1,36 @@
+- init:
+    run: rm -f q3.o q3
+    blocker: true
+
+- build:
+    run: gcc -std=c99 -Wall -Werror q3.c -o q3
+    blocker: true
+
+- case1:
+    run: ./q3 istanbul teknik
+    script:
+        - expect: "istanbul teknik"
+
+- case2:
+    run: ./q3
+    script:
+        - expect: "incorrect usage"
+    exit: 1
+
+- case3:
+    run: ./q3 istanbul
+    script:
+        - expect: "incorrect usage"
+    exit: 1
+
+- case4:
+    run: ./q3 istanbul technical university
+    script:
+        - expect: "incorrect usage"
+    exit: 1
+
+- case5:
+    run: ./q3 firstlongstring secondlongstring
+    script:
+        - expect: "limit exceeded"
+    exit: 1

@@ -1,0 +1,91 @@
+- init:
+    run: rm -f hw1
+    blocker: true
+
+- build:
+    run: g++ -Wall -Werror src/main.cpp src/pokemon.cpp -I include -o assignment1 -lm
+    exit: 0
+    points: 20
+    blocker: true
+
+###---This calico file is for you to check your code.---###
+###---Before Submitting please make sure you are passing all cases.---###
+###---This is not the grading file so taking 100 does not corresponds to full grade for your assignment---###
+###---Passing all cases will show you that your output has compatible with the grading file---###
+
+- case1:
+    run: ./assignment1 enemyNames.txt pokemonNames.txt
+    script: 
+        - expect: 'Welcome to the Pokemon Game!(.*)Please enter your name:\s+'
+        - send: "Ash"
+        - expect: 'Please choose one of these pokemons as your pokemon:(.*)1- Bulbasaur(.*)2- Charmender(.*)3- Squirtle(.*)Choice: '
+        - send: "2"
+        - expect: '(.*)-------- Menu --------(.*)1. Fight for a badge(.*)2. Catch a Pokemon(.*)3. Number of Pokemons(.*)4. Number of Pokeballs(.*)5. Number of Badges(.*)6. Pokedex(.*)7. Exit(.*)Choice: '
+        - send: "1"
+        - expect: 'You encounter with Misty and his/hers pokemon Alakazam(.*)Alakazam Health: 100 Attack: 10(.*)1- Fight(.*)2- Runaway(.*)Choice: '
+        - send: "1"
+        - expect: 'Your Pokemons Health: 90(.*)Misty Pokemons Health: 80(.*)1- Fight(.*)2- Runaway(.*)Choice: '
+        - send: "1"
+        - expect: 'Your Pokemons Health: 80(.*)Misty Pokemons Health: 60(.*)1- Fight(.*)2- Runaway(.*)Choice: '
+        - send: "1"
+        - expect: 'Your Pokemons Health: 70(.*)Misty Pokemons Health: 40(.*)1- Fight(.*)2- Runaway(.*)Choice: '
+        - send: "1"
+        - expect: 'Your Pokemons Health: 60(.*)Misty Pokemons Health: 20(.*)1- Fight(.*)2- Runaway(.*)Choice: '
+        - send: "1"
+        - expect: 'Your Pokemons Health: 50(.*)Misty Pokemons Health: 0(.*)You Won!(.*)'
+        - send: "2"
+        - expect: 'You encounter with Arcanine Health: 100 Attack: 10(.*)1- Catch(.*)2- Runaway(.*)Choice: '
+        - send: "1"
+        - expect: 'You catch Arcanine(.*)'
+        - send: "3"
+        - expect: '1(.*)'
+        - send: "4"
+        - expect: '12(.*)'
+        - send: "5"
+        - expect: '1(.*)'
+        - send: "2"
+        - expect: '(.*)'
+        - send: "2"
+        - expect: '(.*)'
+        - send: "6"
+        - expect: '(.*)------- Pokedex -------(.*)Alakazam(.*)Arcanine(.*)Baltoy(.*)'
+        - send: "7"
+    exit: 0
+    points: 40
+
+- case2:
+    run: valgrind --leak-check=full ./assignment1 enemyNames.txt pokemonNames.txt  
+    script:
+        - expect: '.*'
+        - send: "Ash"
+        - expect: '.*'
+        - send: "2"
+        - expect: '.*'
+        - send: "1"
+        - expect: '.*'
+        - send: "1"
+        - expect: '.*'
+        - send: "1"
+        - expect: '.*'
+        - send: "1"
+        - expect: '.*'
+        - send: "1"
+        - expect: '.*'
+        - send: "1"
+        - expect: '.*'
+        - send: "2"
+        - expect: '.*'
+        - send: "1"
+        - expect: '.*'
+        - send: "3"
+        - expect: '.*'
+        - send: "4"
+        - expect: '.*'
+        - send: "5"
+        - expect: '.*'
+        - send: "6"
+        - expect: '.*'
+        - send: "7"
+        - expect: '(.*)All heap blocks were freed -- no leaks are possible(.*)'
+    exit: 0
+    points: 40

@@ -1,0 +1,8 @@
+PlaceName SalonName Capacity
+Trump_Sahne Salon_1 60
+Trump_Sahne Salon_2 80
+Cevahir_Salon Salon_1 70
+Cevahir_Salon Salon_2 70
+Torium_Sahne Salon_1 20
+Torium_Sahne Salon_2 25
+Torium_Sahne Salon_3 30

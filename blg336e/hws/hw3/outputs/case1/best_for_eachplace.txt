@@ -1,0 +1,21 @@
+Trump_Sahne --> 300
+Trump_Sahne		Salon-1		8:00	10:00
+Trump_Sahne		Salon-2		10:00	12:00
+Trump_Sahne		Salon-2		13:00	15:00
+Trump_Sahne		Salon-2		16:00	18:00
+
+Cevahir_Salon --> 210
+Cevahir_Salon	Salon-2		10:00	13:00
+Cevahir_Salon	Salon-1		14:00	17:00
+Cevahir_Salon	Salon-1		17:00	20:00
+
+Torium_Sahne --> 235
+Torium_Sahne	Salon-2		10:00	11:00
+Torium_Sahne	Salon-1		11:00	12:00
+Torium_Sahne	Salon-2		12:00	13:00
+Torium_Sahne	Salon-3		13:00	14:00
+Torium_Sahne	Salon-3		14:00	15:00
+Torium_Sahne	Salon-1		15:00	16:00
+Torium_Sahne	Salon-2		16:00	17:00
+Torium_Sahne	Salon-3		17:00	18:00
+Torium_Sahne	Salon-3		18:00	19:00

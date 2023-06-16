@@ -1,0 +1,21 @@
+- compile:
+   run: gcc -c -std=c99 email_candidate.c -o email.o
+   blocker: true
+
+- link:
+   run: gcc email.o -o email
+   blocker: true
+
+- case_1:
+   run: ./email
+   script:
+     - expect: "Enter Your Name:"
+     - send: "cihan"
+     - expect: "Enter Your Surname:"
+     - send: "ak"
+     - expect: "Enter Your Birthyear:"
+     - send: "1993"
+     - expect: "Email Candidate 1: cak93@itu.edu.tr\r\n"
+     - expect: "Email Candidate 2: ciak(\\d*)@itu.edu.tr\r\n"
+     - expect: "Email Candidate 3: akcihan1993@itu.edu.tr\r\n"
+   points: 50

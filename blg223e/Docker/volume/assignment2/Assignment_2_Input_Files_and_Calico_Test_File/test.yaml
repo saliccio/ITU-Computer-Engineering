@@ -1,0 +1,68 @@
+- clear:
+    run: ls
+    points: 2
+
+- check_case1:
+    run: ./app  ../Inputs/map1_friend1.txt  ../Inputs/map1_friend2.txt
+    points: 1
+    script:
+        - expect: ".*FRIEND.*1.*:.*CITY8.*CITY3.*CITY1.*CITY6.*CITY4.*CITY7.*CITY10.*CITY11.*CITY5.*CITY2.*" # timeout: 8
+        - expect: _EOF_
+    exit: 0 
+ 
+- check_case2:
+    run: ./app  ../Inputs/map1_friend1.txt  ../Inputs/map1_friend2.txt
+    points: 1
+    script:
+        - expect: ".*FRIEND.*2.*:.*CITY1.*CITY9.*CITY11.*CITY3.*CITY6.*CITY4.*CITY2.*CITY5.*CITY7.*CITY10.*" # timeout: 8
+        - expect: _EOF_
+    exit: 0 
+
+- check_case3:
+    run: ./app  ../Inputs/map1_friend1.txt  ../Inputs/map1_friend2.txt
+    points: 1
+    script:
+        - expect: ".*MEETING.*POINT.*:.*CITY1.*" # timeout: 8
+        - expect: _EOF_
+    exit: 0 
+
+- check_case4:
+    run: ./app  ../Inputs/map1_friend1.txt  ../Inputs/map1_friend2.txt
+    points: 1
+    script:
+        - expect: ".*TOTAL.*DURATION.*COST.*:.*4.*" # timeout: 8
+        - expect: _EOF_
+    exit: 0 
+    
+- check_case5:
+    run: ./app  ../Inputs/map2_friend1.txt  ../Inputs/map2_friend2.txt
+    points: 1
+    script:
+        - expect: ".*FRIEND.*1.*:.*ISTANBUL.*BURSA.*BALIKESIR.*CANAKKALE.*MANISA.*IZMIR.*KUTAHYA.*USAK.*DENIZLI.*" #timeout: 8
+        - expect: _EOF_
+    exit: 0 
+ 
+- check_case6:
+    run: ./app  ../Inputs/map2_friend1.txt  ../Inputs/map2_friend2.txt
+    points: 1
+    script:
+        - expect: ".*FRIEND.*2.*:.*IZMIR.*MANISA.*BALIKESIR.*BURSA.*ISTANBUL.*CANAKKALE.*DENIZLI.*USAK.*KUTAHYA.*" # timeout: 8
+        - expect: _EOF_
+    exit: 0 
+
+- check_case7:
+    run: ./app  ../Inputs/map2_friend1.txt  ../Inputs/map2_friend2.txt
+    points: 1
+    script:
+        - expect: ".*MEETING.*POINT.*:.*BURSA.*" # timeout: 8
+        - expect: _EOF_
+    exit: 0 
+
+- check_case8:
+    run: ./app  ../Inputs/map2_friend1.txt  ../Inputs/map2_friend2.txt
+    points: 1
+    script:
+        - expect: ".*TOTAL.*DURATION.*COST.*:.*6.*" # timeout: 8
+        - expect: _EOF_
+    exit: 0 
+

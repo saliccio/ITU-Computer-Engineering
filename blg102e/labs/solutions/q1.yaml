@@ -1,0 +1,25 @@
+- init:
+    run: rm -f q1.o q1
+    blocker: true
+
+- build:
+    run: gcc -std=c99 -Wall -Werror q1.c -o q1
+    blocker: true
+
+- case1:
+    run: ./q1
+    script:
+        - expect: "Number: "
+        - send: "829"
+        - expect: "Digit: "
+        - send: "5"
+        - expect: "829 does not contain 5."
+
+- case2:
+    run: ./q1
+    script:
+        - expect: "Number: "
+        - send: "46197"
+        - expect: "Digit: "
+        - send: "1"
+        - expect: "46197 contains 1."

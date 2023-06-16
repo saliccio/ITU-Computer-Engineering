@@ -1,0 +1,47 @@
+SIZEA	  EQU	0x80       							; A array size = 64 
+SIZEB 	  EQU	0x10       							; B array size = 16 
+
+		  AREA compare_arrays, CODE, READONLY		; Define this part will write as code
+		  ENTRY
+		  THUMB
+		  ALIGN
+__main    FUNCTION
+		  EXPORT __main
+			  
+; COMPARE_ARRAYS
+		  LDR R0, =X
+		  LDR R1, =Y
+		  BL COMPARE
+		  
+COMPARE   MOVS R2, #0  				; i = 0 index for array A   
+		  MOVS R3, #0				; j = 0 index for array B
+		  MOVS R4, #0 				; counter to keep number of matched elements of X and Y
+		  MOVS R7, #0				; Result flag
+
+ITERATE   CMP R2, #SIZEA			; Check index i with SIZEA
+		  BGE STOP					; If i > SIZEA then stop
+		  LDR R5, [R0, R2] 	        ; X[i] 
+		  CMP R3, #SIZEB			; Check index j with SIZEB
+		  BGE STOP					; If j > SIZEB then stop
+		  LDR R6, [R1, R3]  		; Y[j] 
+		  ADDS R2, R2, #4			; iterate i
+		  CMP R5, R6				; Compare X[i] with Y[j]
+		  BNE ITERATE				; 
+		  ADDS R4, R4, #4			; 
+		  CMP R4, #SIZEB			; Check whether the counter equals to SIZE_B
+		  BEQ FINISH				; 
+		  ADDS R3, R3, #4			; iterate j
+		  B ITERATE 				;
+		  
+FINISH	  MOVS R7, #1				; Change the results flag
+STOP      B STOP
+
+		  ALIGN
+		  ENDFUNC
+		  
+X		  DCD 16, 9, 7, 44, 32, 26, 17, 13, 21, 93, 91, 53, 6, 2, 41, 34   
+X_END
+
+Y		  DCD 13, 21, 93, 91
+END_Y
+		  END
