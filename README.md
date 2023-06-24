@@ -1,5 +1,5 @@
 # ITU Computer Engineering
-All kind of stuff (**course materials, homeworks, projects, recitations, sample exams**) for courses I have taken so far while studying at Istanbul Technical University Computer Engineering Department.
+All kinds of stuff (**course materials, homeworks, projects, recitations, sample exams**) for courses I have taken so far while studying at Istanbul Technical University Computer Engineering Department.
 
 - BLG101E - Introduction to Information Systems [2021-2022 Fall]
 - BLG102E - Introduction to Scientific&Eng.Computing (C Programming) [2020-2021 Spring]
@@ -22,5 +22,6 @@ All kind of stuff (**course materials, homeworks, projects, recitations, sample 
 - BLG454E - Learning from Data [2022-2023 Fall]
 - EHB222E - Introduction to Electronics [2022-2023 Fall]
 - EHB322E - Digital Electronic Circuits [2022-2023 Spring]
+- MAT271E - Probability and Statistics [2021-2022 Spring]
 - MAT281E - Linear Algebra and Applications [2021-2022 Fall]
 - SNT123E - Film Production [2022-2023 Fall]
