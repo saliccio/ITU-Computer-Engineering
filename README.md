@@ -1,6 +1,8 @@
 # ITU Computer Engineering
 All kinds of stuff (**course materials, homeworks, projects, recitations, sample exams**) for courses I have taken so far while studying at Istanbul Technical University Computer Engineering Department.
 
+**NOTE:** If you have trouble accessing the files, you can follow the link: https://drive.google.com/drive/folders/1jL3hWpJ9hGir5PsoUTHQ1-QuqQ_Usnpz?usp=sharing
+
 - BLG101E - Introduction to Information Systems [2021-2022 Fall]
 - BLG102E - Introduction to Scientific&Eng.Computing (C Programming) [2020-2021 Spring]
 - BLG112E - Discrete Mathematics [2020-2021 Spring]
