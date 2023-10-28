@@ -1,75 +1,129 @@
-// e48.cpp
-//	passing objects by reference
+/* @Author
+Student Name: Furkan Salık
+Student ID: 150200056
+E-mail: salik20@itu.edu.tr
+Date: 29/12/2021
+*/
+// Includes: TreeLike.h    TreeLikeNode.h
+// Sources: main.cpp     TreeLike.cpp    TreeLikeNode.cpp
 
 #include <iostream>
-using namespace std;
+#include <string>
+#include <fstream>
+#include "TreeLike.h"
 
-class ComplexT {							// A class to define complex numbers
-	double re, im;							// real and imaginer part of a complex num
-	static unsigned int counter;		// count the number of objects of this class
-public:
-	ComplexT(double re_in = 0, double im_in = 1); // Constructor
-	ComplexT(const ComplexT&);		// Copy Constructor
-	ComplexT add(const ComplexT&) const;	// A method takes an object by reference
-	void print() const;					// Prints complex numbers on the screen	
-	static void reset() { counter = 0; }	// A static function to reset the static member counter
-	~ComplexT();							// Destructor
-};
+void readTreeLikeFileLine(std::string &line, int &firstCityID, int &secondCityID, int &cost)
+{
+    std::string lineData[3];
+    int dataIndex = 0;
+    for (size_t i = 0; i < line.size(); i++)
+    {
+        if (line[i] == ' ')
+        {
+            dataIndex++;
+            continue;
+        }
+        lineData[dataIndex].append(std::string(1, line[i]));
+    }
 
-// Constructor. Can be called without any argument
-ComplexT::ComplexT(double re_in, double im_in)
-{
-	re = re_in;
-	im = im_in;
-	counter++;								// Increment number of objects
-	cout << endl << "Default Constructor";
-	cout << "  Num. of current objects = " << counter;
-}
-// Copy Constructor
-ComplexT::ComplexT(const ComplexT& c)
-{
-	re = c.re;
-	im = c.im;
-	counter++;								// Increment number of objects
-	cout << endl << "Copy Constructor";
-	cout << "  Num. of current objects = " << counter;
+    firstCityID = std::stoi(lineData[0].substr(4));
+    secondCityID = std::stoi(lineData[1].substr(4));
+    cost = std::stoi(lineData[2]);
 }
 
-// The add method: Adds two complex numbers and creates a third complex number as a result
-// This function takes a reference to an object
-ComplexT ComplexT::add(const ComplexT& c) const
+TreeLike *readTreeLikeFile(const std::string &fileName)
 {
-	cout << endl << "Add function is called";
-	ComplexT result;					// A temporary object is created
-	result.re = re + c.re;
-	result.im = im + c.im;
-	return result;
+    std::fstream fileStream;
+    fileStream.open("./" + fileName);
+
+    std::string line;
+    std::getline(fileStream, line);
+
+    int firstCityID;
+    int secondCityID;
+    int cost;
+
+    readTreeLikeFileLine(line, firstCityID, secondCityID, cost); // Read the first line to create head pointer.
+
+    TreeLike *treeLikePtr = new TreeLike(firstCityID);
+    treeLikePtr->getHeadPtr()->addChild(secondCityID, cost);
+
+    while (std::getline(fileStream, line))
+    {
+        readTreeLikeFileLine(line, firstCityID, secondCityID, cost);
+
+        TreeLikeNode *firstCityNodePtr = treeLikePtr->getNodeByID(firstCityID);
+        TreeLikeNode *secondCityNodePtr = treeLikePtr->getNodeByID(secondCityID);
+        if (secondCityNodePtr == nullptr)
+        {
+            firstCityNodePtr->addChild(secondCityID, cost);
+        }
+        else
+        {
+            if (secondCityNodePtr->getBaseCost() > firstCityNodePtr->getBaseCost() + cost)
+            {
+                secondCityNodePtr->setBaseCost(firstCityNodePtr->getBaseCost() + cost);
+            }
+            firstCityNodePtr->addExistingChild(secondCityNodePtr, cost);
+        }
+    }
+
+    fileStream.close();
+
+    return treeLikePtr;
 }
 
-// Prints the complex number on the screen
-void ComplexT::print() const
+std::pair<int, int> getMinCostMeetingCity(TreeLike *firstTreeLikePtr, TreeLike *secondTreeLikePtr, TreeLikeNode *iteratedNodePtr)
 {
-	cout << endl << "re= " << re << " , im= " << im;
-	cout << "  Num. of current objects = " << counter;
+    static int minCost = 99999;
+    static int minNodeID = -1;
+
+    TreeLikeNode *secondFriendNodePtr = secondTreeLikePtr->getNodeByID(iteratedNodePtr->getID()); // Node from the tree of the second friend.
+    if (secondFriendNodePtr != nullptr)
+    {
+        int totalCost = iteratedNodePtr->getBaseCost() + secondFriendNodePtr->getBaseCost();
+        if (totalCost < minCost)
+        {
+            minCost = totalCost;
+            minNodeID = iteratedNodePtr->getID();
+        }
+    }
+
+    TreeLikeNode *leftChildPtr = iteratedNodePtr->getChild(true);
+    if (leftChildPtr != nullptr)
+    {
+        getMinCostMeetingCity(firstTreeLikePtr, secondTreeLikePtr, leftChildPtr);
+    }
+
+    TreeLikeNode *rightChildPtr = iteratedNodePtr->getChild(false);
+    if (rightChildPtr != nullptr)
+    {
+        getMinCostMeetingCity(firstTreeLikePtr, secondTreeLikePtr, rightChildPtr);
+    }
+
+    return {minNodeID, minCost};
 }
 
-// Destructor
-// Decrements the number of the current objects
-ComplexT::~ComplexT()
+int main(int argc, char **argv)
 {
-	counter--;						// Decrements the number of current objects
-	cout << endl << "Destructor has been invoked";
-	cout << "  Num. of current objects = " << counter;
-}
+    TreeLike *friend1TreeLikePtr = readTreeLikeFile(argv[1]);
+    friend1TreeLikePtr->prune();
 
-unsigned int ComplexT::counter; // Memory allocation for the static member
+    std::cout << "FRIEND-1: ";
+    friend1TreeLikePtr->printPreOrder();
 
-// ----- Main Function -----
-int main()
-{
-	ComplexT::reset();			// clear the counter
-	ComplexT z1(1, 2), z2(0.5, -1), z3;	// Three objects are defined
-	z3 = z1.add(z2);					// z3 = z1 + z2
-	z3.print();
-	return 0;
+    TreeLike *friend2TreeLikePtr = readTreeLikeFile(argv[2]);
+    friend2TreeLikePtr->prune();
+
+    std::cout << "FRIEND-2: ";
+    friend2TreeLikePtr->printPreOrder();
+
+    std::pair<int, int> minCostNodeIDPair = getMinCostMeetingCity(friend1TreeLikePtr, friend2TreeLikePtr, friend1TreeLikePtr->getHeadPtr());
+    std::cout << "MEETING POINT: CITY" << minCostNodeIDPair.first << std::endl;
+    std::cout << "TOTAL DURATION COST: " << minCostNodeIDPair.second << std::endl;
+
+    delete friend1TreeLikePtr;
+    delete friend2TreeLikePtr;
+
+    return 0;
 }
